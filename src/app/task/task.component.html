@@ -1,0 +1,26 @@
+<article class="task-card">
+  <header class="task-card__header">
+    <h3 class="task-card__title">{{ task.title }}</h3>
+    <span class="status-badge" [ngClass]="statusClass(task.status)">{{ task.status }}</span>
+  </header>
+
+  <p class="task-card__description" *ngIf="task.description">{{ task.description }}</p>
+
+  <div class="task-card__meta">
+    <label class="task-card__status-label">
+      Status:
+      <select
+        class="task-card__status-select"
+        [value]="task.status"
+        (change)="onStatusChange($any($event.target).value)"
+      >
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+    </label>
+  </div>
+
+  <footer class="task-card__actions">
+    <button type="button" class="btn btn--secondary" (click)="onEdit()">Edit</button>
+    <button type="button" class="btn btn--danger" (click)="onDelete()">Delete</button>
+  </footer>
+</article>

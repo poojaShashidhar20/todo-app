@@ -1,0 +1,43 @@
+<div class="page">
+  <header class="page__header">
+    <h1>To-Do List</h1>
+   
+  </header>
+
+  <main class="page__layout">
+    <section class="page__form-column">
+      <app-task-form
+        [task]="editingTask"
+        (save)="onFormSave($event)"
+        (cancel)="onFormCancel()"
+      ></app-task-form>
+    </section>
+
+    <section class="page__list-column">
+      <div class="list-toolbar">
+        <label for="statusFilter">Filter by status:</label>
+        <select id="statusFilter" [(ngModel)]="statusFilter" name="statusFilter">
+          <option *ngFor="let f of filters" [value]="f">{{ f }}</option>
+        </select>
+      </div>
+
+      <ng-container *ngIf="tasks$ | async as tasks">
+        <ng-container *ngIf="visibleTasks(tasks) as visible">
+          <p class="empty-state" *ngIf="visible.length === 0">
+            No tasks{{ statusFilter !== 'All' ? ' with status "' + statusFilter + '"' : '' }} yet.
+          </p>
+
+          <div class="task-list">
+            <app-task
+              *ngFor="let task of visible; trackBy: trackByTaskId"
+              [task]="task"
+              (edit)="onEditRequested($event)"
+              (delete)="onDeleteRequested($event)"
+              (statusChange)="onStatusChangeRequested($event)"
+            ></app-task>
+          </div>
+        </ng-container>
+      </ng-container>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,46 @@
+<form class="task-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2 class="task-form__heading">{{ isEditMode ? 'Edit Task' : 'Add a New Task' }}</h2>
+
+  <div class="form-field">
+    <label for="title">Title *</label>
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      placeholder="e.g. Write project proposal"
+      [class.invalid]="titleControl.invalid && titleControl.touched"
+    />
+    <p class="error-text" *ngIf="titleControl.invalid && titleControl.touched">
+      <ng-container *ngIf="titleControl.errors?.['required']">Title is required.</ng-container>
+      <ng-container *ngIf="titleControl.errors?.['maxlength']">
+        Title must be 80 characters or fewer.
+      </ng-container>
+    </p>
+  </div>
+
+  <div class="form-field">
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      rows="3"
+      placeholder="Optional details..."
+    ></textarea>
+  </div>
+
+  <div class="form-field">
+    <label for="status">Status</label>
+    <select id="status" formControlName="status">
+      <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <div class="task-form__actions">
+    <button type="submit" class="btn btn--primary" [disabled]="form.invalid">
+      {{ isEditMode ? 'Save Changes' : 'Add Task' }}
+    </button>
+    <button type="button" class="btn btn--ghost" (click)="onCancel()" *ngIf="isEditMode">
+      Cancel
+    </button>
+  </div>
+</form>
