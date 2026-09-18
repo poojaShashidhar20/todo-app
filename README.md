@@ -15,7 +15,7 @@ Built with Angular 19 (standalone components, no NgModules).
 * **Data binding** — property binding (`[task]`, `[value]`, `[disabled]`, `[ngClass]`, ...) and event binding (`(click)`, `(change)`, `(ngSubmit)`, custom `@Output`s) throughout.
 * **Angular forms** — `TaskFormComponent` uses `ReactiveFormsModule` with validators (`required`, `maxLength`) and inline error messages.
 * **Reusable components / `@Input` & `@Output`** — see "Architecture" below.
-* **Unit tests** — 34 Jasmine/Karma specs across the service, both components, and the app shell (see "Testing").
+  
 
 ## Architecture
 
